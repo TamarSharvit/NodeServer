@@ -20,6 +20,7 @@ router.get("/login", function (req, res) {
 
 router.post("/signup", function (req, res) {
   const { user, password } = req.body;
+  console.log('a');
 });
 
 module.exports = router;
