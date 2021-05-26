@@ -2,6 +2,23 @@ var express = require('express');
 var router = express.Router();
 const jwt = require("jsonwebtoken");
 
+var config = {
+  user: 'MBYDOMAIN/322368507',
+  password: '',
+  server: 'srv2\pupils',
+  database: 'SIUR',
+  options: {
+    port: 0 //////// ask elkarif
+  }
+};
+
+const getRequest = () => {
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    // create Request object
+  });
+  return new sql.Request();
+}
 const TOKEN_SECRET =
   "F9EACB0E0AB8102E999DF5E3808B215C028448E868333041026C481960EFC126";
 
