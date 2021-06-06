@@ -3,12 +3,12 @@ var router = express.Router();
 const jwt = require("jsonwebtoken");
 
 var config = {
-  user: 'MBYDOMAIN/322368507',
+   user: '',//'MBYDOMAIN/322368507',
   password: '',
-  server: 'srv2\pupils',
-  database: 'SIUR',
+  server: 'NAYAD-1',
+  database: 'SIURMOCHOT',
   options: {
-    port: 0 //////// ask elkarif
+    // port: 0 //////// ask elkarif
   }
 };
 
