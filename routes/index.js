@@ -69,58 +69,58 @@ router.get("/login/:userName/:password", function (req, res) {
   });
 
 });
-// router.post("/signup", function (req, res) {
-
-//   try{
-//    const { userName, password  } = req.body; //Adress, phone ....
-//    //Validations.
-//    //Check if user exists
-//    MongoClient.connect(url, function (err, db) {
-//      if (err) throw err;
-//      var dbo = db.db("projectDB");
-//      var myobj = { userName, password };
-//      dbo.collection("users").insertOne(myobj, function (err, res) {
-//        if (err) throw err;
-//        console.log("1 document inserted");
-//        db.close();
-//      });
-//      // const token = generateAccessToken(user);
-//      // console.log("token", token);
-//      return res.send();
-//    });
-// }catch(error){
-// res.status(500).send(error)
-// }
-// }
-
 router.post("/signup", function (req, res) {
-  
-  const { userName, password } = req.body; //Adress, phone ....
-  //Validations.
-  //Check if user exists
-  console.log(req.body.userName);
-  MongoClient.connect(url, function (err, db) {
-    if (err) {
-      // throw err
-      res.status(500).send(err)
-    };
-    var dbo = db.db("projectDB");
-    var myobj = { userName, password };
-    dbo.collection("users").insertOne(myobj, function (err, res) {
+
+  try{
+   const { userName, password  } = req.body; //Adress, phone ....
+   //Validations.
+   //Check if user exists
+   MongoClient.connect(url, function (err, db) {
      if (err) throw err;
-      console.log("1 document inserted");
-      db.close();
-    });
-      // const token = generateAccessToken(userName);
-      // console.log("token", token);
-      return res.send();
-  
-
-      return res.json({ token }).send();
-  }
-
-  
+     var dbo = db.db("projectDB");
+     var myobj = { userName, password };
+     dbo.collection("users").insertOne(myobj, function (err, res) {
+       if (err) throw err;
+       console.log("1 document inserted");
+       db.close();
+     });
+     // const token = generateAccessToken(user);
+     // console.log("token", token);
+     return res.send();
+   });
+}catch(error){
+res.status(500).send(error)
 }
+}
+
+// router.post("/signup", function (req, res) {
+  
+//   const { userName, password } = req.body; //Adress, phone ....
+//   //Validations.
+//   //Check if user exists
+//   console.log(req.body.userName);
+//   MongoClient.connect(url, function (err, db) {
+//     if (err) {
+//       // throw err
+//       res.status(500).send(err)
+//     };
+//     var dbo = db.db("projectDB");
+//     var myobj = { userName, password };
+//     dbo.collection("users").insertOne(myobj, function (err, res) {
+//      if (err) throw err;
+//       console.log("1 document inserted");
+//       db.close();
+//     });
+//       // const token = generateAccessToken(userName);
+//       // console.log("token", token);
+//       return res.send();
+  
+
+//       return res.json({ token }).send();
+//   }
+
+  
+//   )}
 
 
 
