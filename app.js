@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./controllers/usersController');
 
 const MongoClient = require('mongodb').MongoClient;
 var urlToCreate = "mongodb://localhost:27017/<project>DB";
