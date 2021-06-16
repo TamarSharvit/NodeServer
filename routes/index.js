@@ -13,20 +13,21 @@ const generateAccessToken = (username) => {
   return jwt.sign({ username }, TOKEN_SECRET);
 };
 
-router.get("/createDB", createDB);
- 
-router.get("/createUserColection", createUsersCollection);
-  
+router.get("/createDB", () => { });
 
 
-
-  
+// router.get("/createUserColection", createUsersCollection);
 
 
 
 
 
 
- 
+
+
+
+
+
+
 
 module.exports = router;
