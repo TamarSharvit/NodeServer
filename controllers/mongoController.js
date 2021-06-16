@@ -1,7 +1,9 @@
 const express = require("express");
-
+const MongoClient = require('mongodb').MongoClient;
+var urlToCreate = "mongodb://srv1/SiurMochot";
+var url = "mongodb://srv1/";
 class Mongo {
-  createDB = (res, req) => {
+  createDB = (req, res) => {
     MongoClient.connect(urlToCreate, function (err, db) {
       console.log("err", err)
       if (err) {
@@ -18,7 +20,7 @@ class Mongo {
     try {
       MongoClient.connect(url, function (err, db) {
         if (err) throw err;
-        var dbo = db.db("projectDB");
+        var dbo = db.db("SiurMochotDB");
         dbo.createCollection("users", function (err, res) {
           if (err) throw err;
           console.log("Collection created!");
@@ -32,23 +34,6 @@ class Mongo {
     }
   }
 
-  createRegistersCollection = (res, req) => {
-    try {
-      MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db("projectDB");
-        dbo.createCollection("registers", function (err, res) {
-          if (err) throw err;
-          console.log("Collection created!");
-          db.close();
-          res.send('db created')
-        });
-      });
-    }
-    catch (error) {
-      res.status(500).send(error)
-    }
-  }
 
 }
 module.exports = new Mongo();

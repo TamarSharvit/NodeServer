@@ -7,9 +7,10 @@ var logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const newRegistersRouter = require('./routes/newRegisters')
+
 const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient;
-var urlToCreate = "mongodb://localhost:27017/<project>DB";
+var urlToCreate = "mongodb://localhost:27017/<SiurMochot>DB";
 var url = "mongodb://localhost:27017/";
 var app = express();
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 app.use('/', indexRouter);
+app.get("/users/login",()=>{console.log("login");})
 app.use('/users', usersRouter);
 app.use('/newRegisters', newRegistersRouter)
 // catch 404 and forward to error handler
