@@ -4,33 +4,33 @@ var url = "mongodb://srv1:27017/";
 const jwt = require("jsonwebtoken");
 
 const TOKEN_SECRET =
-  "F9EACB0E0AB8102E999DF5E3808B215C028448E868333041026C481960EFC126";
+    "F9EACB0E0AB8102E999DF5E3808B215C028448E868333041026C481960EFC126";
 
 class areaOfInterest {
 
-  addAreaOfInterest = (res, req) => {
-    const {priceDiscount, discount, price, modol, course, status} = req.body;
+    addAreaOfInterest = (req, res) => {
+        const { priceDiscount, discount, price, modol, course, status } = req.body;
 
-    try {
-      MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db("SiurMochot");
-        var myobj = { priceDiscount, discount, price, modol, course, status};
-        dbo.collection("areaOfInterest").insertOne(myobj, function (err, respon) {
-          if (err) throw err;
-          console.log("1 document inserted");
-          db.close();
-          // const token = generateAccessToken(myobj);
-          // console.log("token", token);
-          // return respon.send();
-        });
-        return res.send();
-      });
-    } catch (error) {
-      res.status(500).send(error)
+        try {
+            MongoClient.connect(url, function (err, db) {
+                if (err) throw err;
+                var dbo = db.db("SiurMochot");
+                var myobj = { priceDiscount, discount, price, modol, course, status };
+                dbo.collection("areaOfInterest").insertOne(myobj, function (err, respon) {
+                    if (err) throw err;
+                    console.log("1 document inserted");
+                    db.close();
+                    // const token = generateAccessToken(myobj);
+                    // console.log("token", token);
+                    // return respon.send();
+                });
+                return res.send();
+            });
+        } catch (error) {
+            res.status(500).send(error)
 
+        }
     }
-  }
 }
 
 module.exports = new areaOfInterest();
