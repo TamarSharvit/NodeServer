@@ -7,7 +7,7 @@ var logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const newRegistersRouter = require('./routes/newRegisters')
-
+const areaOfInterestRouter = require('./routes/areaOfInterest')
 const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient;
 var urlToCreate = "mongodb://localhost:27017/<SiurMochot>DB";
@@ -28,7 +28,8 @@ app.use(cors())
 app.use('/', indexRouter);
 app.get("/users/login",()=>{console.log("login");})
 app.use('/users', usersRouter);
-app.use('/newRegisters', newRegistersRouter)
+app.use('/newRegister', newRegistersRouter)
+app.use('/areaOfInterest', areaOfInterestRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
