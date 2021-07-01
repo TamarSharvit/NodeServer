@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const newRegister = require("../controllers/newRegisterController")
+const newRegisterController = require("../controllers/newRegisterController")
 
-router.post("/data", newRegister.addRegisterToData);
+router.post("/addRegisterToData", newRegisterController.addRegisterToData);
 module.exports = router

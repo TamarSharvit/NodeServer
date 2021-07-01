@@ -1,11 +1,11 @@
 var express = require('express');
 const MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://srv1:27017/";
+var url = "mongodb://localhost/";
 const jwt = require("jsonwebtoken");
 // /* GET users listing. */
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
-// });
+// });srv1:27017
 
 const TOKEN_SECRET =
   "F9EACB0E0AB8102E999DF5E3808B215C028448E868333041026C481960EFC126";

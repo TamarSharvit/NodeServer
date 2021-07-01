@@ -1,16 +1,16 @@
 var express = require('express');
 
-class newRegister {
+class newInterest {
 
-  addRegisterToData = (res, req) => {
-    const { id, fName, lName, email, phone, sex, leadSource, additionalPhone, foreignBirthDate, hebrowBirthDate, note } = req.body;
+  addNewInterestToData = (res, req) => {
+    const { priceDiscount, discount, price, modol, course, status} = req.body;
     var url = "mongodb://srv1:27017/";
     try {
       MongoClient.connect(url, function (err, db) {
         if (err) throw err;
-        var dbo = db.db("SiurMochot");
-        var myobj = { id, fName, lName, email, phone, sex, leadSource, additionalPhone, foreignBirthDate, hebrowBirthDate, note };
-        dbo.collection("registers").insertOne(myobj, function (err, respon) {
+        var dbo = db.db("SIURMOCHOT");
+        var myobj = { priceDiscount, discount, price, modol, course, status };
+        dbo.collection("areaOfInterest").insertOne(myobj, function (err, respon) {
           if (err) throw err;
           console.log("1 document inserted");
           db.close();
@@ -27,9 +27,4 @@ class newRegister {
   }
 }
 
-module.exports = new newRegister();
-
-
-
-  
-
+module.exports = new newInterest();
