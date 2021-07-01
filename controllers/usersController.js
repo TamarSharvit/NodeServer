@@ -16,38 +16,44 @@ const generateAccessToken = (email, password) => {
 class usersController {
   login = (req, res) => {
     console.log("login!!")
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     const { email, password } = req.params;
     //Check the pwd in the server
-    console.log(req.params);
-
     MongoClient.connect(url, function (err, db) {
       if (err) throw err;
       console.log("connect");
       var dbo = db.db("SiurMochot");
       // var query = { user };
       // dbo.collection("users").find({ email}).toArray(function (err, result) {
-        dbo.collection("users").findOne({email}) 
-        const token = generateAccessToken(email, password);
+      console.log("email", email);
+      dbo.collection("users").findOne({ email }, (err, result) => {
+        console.log("result", result);
+        if (result && result.password === password) {
+          const token = generateAccessToken(email, password);
           console.log("token", token);
-          return res.json({ token }).send();
-    
-   
-        db.close();
-        // if (!result || result.length === 0) {
-        //   return res.status(404).send();
-        // }
-
-        // if (result[0].password = password) {
-        //   console.log("resolt[0]" + result[0]);
-        //   const token = generateAccessToken(email, password);
-        //   console.log("token", token);
-        //   return res.json({ token }).send();
-        // } else {
-        //   return res.status(401).send();
-        // }
+          return res.json({ token, status: 200 }).send();
+        } else {
+          return res.json({ status: 401 }).send();
+        }
       }
-      );
+      )
+
+
+      db.close();
+      // if (!result || result.length === 0) {
+      //   return res.status(404).send();
+      // }
+
+      // if (result[0].password = password) {
+      //   console.log("resolt[0]" + result[0]);
+      //   const token = generateAccessToken(email, password);
+      //   console.log("token", token);
+      //   return res.json({ token }).send();
+      // } else {
+      //   return res.status(401).send();
+      // }
+    }
+    );
 
   }
 
