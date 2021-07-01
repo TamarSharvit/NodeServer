@@ -1,6 +1,6 @@
 var express = require('express');
 const MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://srv1:27017/";
+var url = "mongodb://localhost:27017/";
 const jwt = require("jsonwebtoken");
 
 const TOKEN_SECRET =

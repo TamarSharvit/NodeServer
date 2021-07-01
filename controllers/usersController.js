@@ -1,6 +1,6 @@
 var express = require('express');
 const MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost/";
+var url = "mongodb://localhost:27017/";
 const jwt = require("jsonwebtoken");
 // /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -62,7 +62,7 @@ class usersController {
     const { id, fName, lName, email, password } = req.body;
     //    //Validations.
     //    //Check if user exists
-    var url = "mongodb://srv1:27017/";
+    var url = "mongodb://localhost:27017/";
     try {
       MongoClient.connect(url, function (err, db) {
         try {
