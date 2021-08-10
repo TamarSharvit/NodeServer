@@ -11,6 +11,7 @@ const areaOfInterestRouter = require('./routes/areaOfInterest')
 const reportingRouter = require('./routes/reporting')
 const coursesRouter = require('./routes/courseDetails');
 const modelRouter=require('./routes/modelDetails')
+const editStatusRouter=require('./routes/editStatus')
 const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient;
 var urlToCreate = "mongodb://localhost:27017/<SiurMochot>DB";
@@ -36,6 +37,7 @@ app.use('/areaOfInterest', areaOfInterestRouter)
 app.use('/reporting', reportingRouter);
 app.use('/courseDetails', coursesRouter);
 app.use('/modelDetails', modelRouter);
+app.use('/editStatus', editStatusRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
