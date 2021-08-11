@@ -1,136 +1,136 @@
-var express = require('express');
-const MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
-const jwt = require("jsonwebtoken");
-// /* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });srv1:27017
+var UsersModel = require('../models/usersModel.js');
 
-const TOKEN_SECRET =
-  "F9EACB0E0AB8102E999DF5E3808B215C028448E868333041026C481960EFC126";
+/**
+ * usersController.js
+ *
+ * @description :: Server-side logic for managing userss.
+ */
+module.exports = {
 
-const generateAccessToken = (email, password) => {
-  return jwt.sign({ email: email, password: password }, TOKEN_SECRET);
+    /**
+     * usersController.list()
+     */
+    list: function (req, res) {
+        UsersModel.find(function (err, userss) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting users.',
+                    error: err
+                });
+            }
+
+            return res.json(userss);
+        });
+    },
+
+    /**
+     * usersController.show()
+     */
+    show: function (req, res) {
+        var id = req.params.id;
+
+        UsersModel.findOne({_id: id}, function (err, users) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting users.',
+                    error: err
+                });
+            }
+
+            if (!users) {
+                return res.status(404).json({
+                    message: 'No such users'
+                });
+            }
+
+            return res.json(users);
+        });
+    },
+
+    /**
+     * usersController.create()
+     */
+    create: function (req, res) {
+        var users = new UsersModel({
+			id : req.body.id,
+			firstName : req.body.firstName,
+			lastName : req.body.lastName,
+			email : req.body.email,
+			password : req.body.password,
+			phone : req.body.phone,
+			addres : req.body.addres,
+			employee/manager : req.body.employee/manager
+        });
+
+        users.save(function (err, users) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when creating users',
+                    error: err
+                });
+            }
+
+            return res.status(201).json(users);
+        });
+    },
+
+    /**
+     * usersController.update()
+     */
+    update: function (req, res) {
+        var id = req.params.id;
+
+        UsersModel.findOne({_id: id}, function (err, users) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting users',
+                    error: err
+                });
+            }
+
+            if (!users) {
+                return res.status(404).json({
+                    message: 'No such users'
+                });
+            }
+
+            users.id = req.body.id ? req.body.id : users.id;
+			users.firstName = req.body.firstName ? req.body.firstName : users.firstName;
+			users.lastName = req.body.lastName ? req.body.lastName : users.lastName;
+			users.email = req.body.email ? req.body.email : users.email;
+			users.password = req.body.password ? req.body.password : users.password;
+			users.phone = req.body.phone ? req.body.phone : users.phone;
+			users.addres = req.body.addres ? req.body.addres : users.addres;
+			users.employee/manager = req.body.employee/manager ? req.body.employee/manager : users.employee/manager;
+			
+            users.save(function (err, users) {
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Error when updating users.',
+                        error: err
+                    });
+                }
+
+                return res.json(users);
+            });
+        });
+    },
+
+    /**
+     * usersController.remove()
+     */
+    remove: function (req, res) {
+        var id = req.params.id;
+
+        UsersModel.findByIdAndRemove(id, function (err, users) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when deleting the users.',
+                    error: err
+                });
+            }
+
+            return res.status(204).json();
+        });
+    }
 };
-class usersController {
-  login = (req, res) => {
-    console.log("login!!")
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-    const { email, password } = req.params;
-    //Check the pwd in the server
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err;
-      console.log("connect");
-      var dbo = db.db("SiurMochot");
-      // var query = { user };
-      // dbo.collection("users").find({ email}).toArray(function (err, result) {
-      console.log("email", email);
-      dbo.collection("users").findOne({ email }, (err, result) => {
-        console.log("result", result);
-        if (result && result.password === password) {
-          const token = generateAccessToken(email, password);
-          console.log("token", token);
-          return res.json({ token, status: 200 }).send();
-        } else {
-          return res.json({ status: 401 }).send();
-        }
-      }
-      )
-
-
-      db.close();
-      // if (!result || result.length === 0) {
-      //   return res.status(404).send();
-      // }
-
-      // if (result[0].password = password) {
-      //   console.log("resolt[0]" + result[0]);
-      //   const token = generateAccessToken(email, password);
-      //   console.log("token", token);
-      //   return res.json({ token }).send();
-      // } else {
-      //   return res.status(401).send();
-      // }
-    }
-    );
-
-  }
-
-
-  post = (req, res) => {
-    const { id, fName, lName, email, password } = req.body;
-    //    //Validations.
-    //    //Check if user exists
-    var url = "mongodb://localhost:27017/";
-    try {
-      MongoClient.connect(url, function (err, db) {
-        try {
-          if (err) throw err;
-          var dbo = db.db("SiurMochot");
-          var myobj = { id, fName, lName, email, password };
-          dbo.collection("users").insertOne(myobj, function (err, respon) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            db.close();
-            // const token = generateAccessToken(myobj);
-            // console.log("token", token);
-            // return respon.send();
-          });
-          return res.send();
-        } catch (error) {
-          throw error
-        }
-      });
-    } catch (error) {
-      throw error
-
-    }
-  }
-}
-module.exports = new usersController();
-
-
-
-
-
-
-// var MongoClient = require('mongodb').MongoClient;
-// const jwt = require("jsonwebtoken");
-// var url = "mongodb://localhost:27017/mySchoolDB";
-
-// class Login {
-//   TOKEN_SECRET = "F9EACB0E0AB8102E999DF5E3808B215C028448E868333041026C481960EFC126";
-
-//   generateAccessToken = (username) => {
-//     return jwt.sign({ username }, TOKEN_SECRET);
-//   };
-
-//   login = (req, res) => {
-//     try {
-//       res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4000');
-//       const { user, password } = req.query;
-//       if (user == '1' && password == '1')
-//         return res.json({ kind: 'admin' });
-//       MongoClient.connect(url, async function (err, db) {
-//         if (err)
-//           return res.status(500).send(err);
-//         var dbo = db.db("mySchoolDB");
-//         var query = { email: user, password };
-//         let result
-//         result = await dbo.collection("student").findOne(query)
-//           if (result) {
-//             return res.json({ kind: 'student', result });
-//           }
-
-//         result = await dbo.collection("teacher").findOne(query)
-//         if (result) {
-//           return res.json({ kind: 'teacher', result });
-//         }
-//         db.close();
-//       });
-//   } catch(error) {
-//     throw error
-//   }
-// }
-// }

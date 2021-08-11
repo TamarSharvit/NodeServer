@@ -4,19 +4,24 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const newRegistersRouter = require('./routes/newRegisters')
-const areaOfInterestRouter = require('./routes/areaOfInterest')
-const reportingRouter = require('./routes/reporting')
-const coursesRouter = require('./routes/courseDetails');
-const modelRouter=require('./routes/modelDetails')
-const editStatusRouter=require('./routes/editStatus')
+const indexRouter = require('./mongoRoutes/index');
+const usersRouter = require('./mongoRoutes/users');
+const newRegistersRouter = require('./mongoRoutes/newRegisters')
+const areaOfInterestRouter = require('./mongoRoutes/areaOfInterest')
+const reportingRouter = require('./mongoRoutes/reporting')
+const coursesRouter = require('./mongoRoutes/courseDetails');
+const modelRouter=require('./mongoRoutes/modelDetails')
+const editStatusRouter=require('./mongoRoutes/editStatus')
 const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient;
 var urlToCreate = "mongodb://localhost:27017/<SiurMochot>DB";
 var url = "mongodb://localhost:27017/";
+
+
+const mongoosedb=require('./mongooseDB');
+
 var app = express();
+mongoosedb._connect();
 
 
 // view engine setup
