@@ -1,119 +1,119 @@
-var StatusModel = require('../models/statusModel.js');
+var BranchModel = require('../models/branchModel.js');
 
 /**
- * statusController.js
+ * branchController.js
  *
- * @description :: Server-side logic for managing statuss.
+ * @description :: Server-side logic for managing branchs.
  */
 module.exports = {
 
     /**
-     * statusController.list()
+     * branchController.list()
      */
     list: function (req, res) {
-        StatusModel.find(function (err, statuss) {
+        BranchModel.find(function (err, branchs) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting status.',
+                    message: 'Error when getting branch.',
                     error: err
                 });
             }
 
-            return res.json({statuss, status:200});
+            return res.json(branchs);
         });
     },
 
     /**
-     * statusController.show()
+     * branchController.show()
      */
     show: function (req, res) {
         var id = req.params.id;
 
-        StatusModel.findOne({_id: id}, function (err, status) {
+        BranchModel.findOne({_id: id}, function (err, branch) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting status.',
+                    message: 'Error when getting branch.',
                     error: err
                 });
             }
 
-            if (!status) {
+            if (!branch) {
                 return res.status(404).json({
-                    message: 'No such status'
+                    message: 'No such branch'
                 });
             }
 
-            return res.json(status);
+            return res.json(branch);
         });
     },
 
     /**
-     * statusController.create()
+     * branchController.create()
      */
     create: function (req, res) {
-        var status = new StatusModel({
-			statusName : req.body.statusName,
+        var branch = new BranchModel({
+			name : req.body.name,
 			code : req.body.code
         });
 
-        status.save(function (err, status) {
+        branch.save(function (err, branch) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when creating status',
+                    message: 'Error when creating branch',
                     error: err
                 });
             }
 
-            return res.status(201).json(status);
+            return res.status(201).json(branch);
         });
     },
 
     /**
-     * statusController.update()
+     * branchController.update()
      */
     update: function (req, res) {
         var id = req.params.id;
 
-        StatusModel.findOne({_id: id}, function (err, status) {
+        BranchModel.findOne({_id: id}, function (err, branch) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting status',
+                    message: 'Error when getting branch',
                     error: err
                 });
             }
 
-            if (!status) {
+            if (!branch) {
                 return res.status(404).json({
-                    message: 'No such status'
+                    message: 'No such branch'
                 });
             }
 
-            status.statusName = req.body.statusName ? req.body.statusName : status.statusName;
-			status.code = req.body.code ? req.body.code : status.code;
+            branch.name = req.body.name ? req.body.name : branch.name;
+			branch.code = req.body.code ? req.body.code : branch.code;
 			
-            status.save(function (err, status) {
+            branch.save(function (err, branch) {
                 if (err) {
                     return res.status(500).json({
-                        message: 'Error when updating status.',
+                        message: 'Error when updating branch.',
                         error: err
                     });
                 }
 
-                return res.json(status);
+                return res.json(branch);
             });
         });
     },
 
     /**
-     * statusController.remove()
+     * branchController.remove()
      */
     remove: function (req, res) {
         var id = req.params.id;
 
-        StatusModel.findByIdAndRemove(id, function (err, status) {
+        BranchModel.findByIdAndRemove(id, function (err, branch) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when deleting the status.',
+                    message: 'Error when deleting the branch.',
                     error: err
                 });
             }

@@ -11,6 +11,7 @@ router.get('/', personalInformationController.list);
  * GET
  */
 router.get('/:id', personalInformationController.show);
+router.get('/show/:secretary', personalInformationController.showSecretary);
 
 /*
  * POST

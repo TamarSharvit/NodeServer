@@ -47,6 +47,28 @@ module.exports = {
         });
     },
 
+
+    showSecretary: function (req, res) {
+        var secretaryId = req.params.secretary;
+
+        EducationprogramModel.find({secretary: secretaryId}, function (err, educationProgram) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting educationProgram.',
+                    error: err
+                });
+            }
+
+            if (!educationProgram) {
+                return res.status(404).json({
+                    message: 'No such educationProgram'
+                });
+            }
+
+            return res.json({educationProgram, status:200});
+        });
+    },
+
     /**
      * educationProgramController.create()
      */
@@ -56,7 +78,6 @@ module.exports = {
 			courseName : req.body.courseName,
 			branch : req.body.branch,
 			yearOfLearning : req.body.yearOfLearning,
-			model : req.body.model,
 			price : req.body.price,
 			discount : req.body.discount,
 			priceAfterDiscount : req.body.priceAfterDiscount,
@@ -103,7 +124,6 @@ module.exports = {
 			educationProgram.courseName = req.body.courseName ? req.body.courseName : educationProgram.courseName;
 			educationProgram.branch = req.body.branch ? req.body.branch : educationProgram.branch;
 			educationProgram.yearOfLearning = req.body.yearOfLearning ? req.body.yearOfLearning : educationProgram.yearOfLearning;
-			educationProgram.model = req.body.model ? req.body.model : educationProgram.model;
 			educationProgram.price = req.body.price ? req.body.price : educationProgram.price;
 			educationProgram.discount = req.body.discount ? req.body.discount : educationProgram.discount;
 			educationProgram.priceAfterDiscount = req.body.priceAfterDiscount ? req.body.priceAfterDiscount : educationProgram.priceAfterDiscount;

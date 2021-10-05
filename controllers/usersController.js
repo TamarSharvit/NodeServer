@@ -19,7 +19,7 @@ module.exports = {
                 });
             }
 
-            return res.json(userss);
+            return res.json({userss, status:200});
         });
     },
 
@@ -59,7 +59,7 @@ module.exports = {
 			password : req.body.password,
 			phone : req.body.phone,
 			addres : req.body.addres,
-			employee/manager : req.body.employee/manager
+			employeeManager : req.body.employeeManager
         });
 
         users.save(function (err, users) {
@@ -101,7 +101,7 @@ module.exports = {
 			users.password = req.body.password ? req.body.password : users.password;
 			users.phone = req.body.phone ? req.body.phone : users.phone;
 			users.addres = req.body.addres ? req.body.addres : users.addres;
-			users.employee/manager = req.body.employee/manager ? req.body.employee/manager : users.employee/manager;
+			users.employeeManager = req.body.employeeManager ? req.body.employeeManager : users.employeeManager;
 			
             users.save(function (err, users) {
                 if (err) {

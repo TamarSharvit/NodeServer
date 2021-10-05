@@ -10,12 +10,11 @@ var educationProgramSchema = new Schema({
 	 	type: Schema.Types.ObjectId,
 	 	ref: 'courses'
 	},
-	'branch' : String,
-	'yearOfLearning' : String,
-	'model' : {
-	 	type: Schema.Types.ObjectId,
-	 	ref: 'models'
+	'branch' : {
+		type: Schema.Types.ObjectId,
+	 	ref: 'branch'
 	},
+	'yearOfLearning' : String,
 	'price' : Number,
 	'discount' : String,
 	'priceAfterDiscount' : Number,

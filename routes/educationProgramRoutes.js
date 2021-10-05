@@ -11,7 +11,7 @@ router.get('/', educationProgramController.list);
  * GET
  */
 router.get('/:id', educationProgramController.show);
-
+router.get('/show/:secretary', educationProgramController.showSecretary);
 /*
  * POST
  */

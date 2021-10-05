@@ -16,8 +16,16 @@ const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient;
 var urlToCreate = "mongodb://localhost:27017/<SiurMochot>DB";
 var url = "mongodb://localhost:27017/";
-
-
+//הראוטרים של מונגוז
+const user=require('./routes/usersRoutes');
+const courses= require('./routes/coursesRoutes');
+const educationPrograming=require('./routes/educationProgramRoutes');
+const kindOfReports=require('./routes/kindOfReportRoutes');
+const leadSource=require('./routes/leadSourceRoutes');
+const personalInformation=require('./routes/personalInformationRoutes');
+const reporting=require('./routes/reportingRoutes');
+const status=require('./routes/statusRoutes');
+const branch=require('./routes/branchRoutes');
 const mongoosedb=require('./mongooseDB');
 
 var app = express();
@@ -29,6 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -43,6 +52,19 @@ app.use('/reporting', reportingRouter);
 app.use('/courseDetails', coursesRouter);
 app.use('/modelDetails', modelRouter);
 app.use('/editStatus', editStatusRouter);
+
+
+//ניתובים לכל הפונקציות של המונגוז בכלי האוטומטי
+
+app.use('/user',user);
+app.use('/courses', courses);
+app.use('/educationPrograming', educationPrograming);
+app.use('/kindOfReports', kindOfReports);
+app.use('/leadSource', leadSource);
+app.use('/personalInformation', personalInformation);
+app.use('/reporting', reporting);
+app.use('/status', status);
+app.use('/branch', branch);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

@@ -9,7 +9,7 @@ var usersSchema = new Schema({
 	'password' : String,
 	'phone' : String,
 	'addres' : String,
-	'employee/manager' : String
+	'employeeManager' : String
 });
 
 module.exports = mongoose.model('users', usersSchema);

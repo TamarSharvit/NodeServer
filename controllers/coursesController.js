@@ -19,7 +19,8 @@ module.exports = {
                 });
             }
 
-            return res.json(coursess);
+            return res.json({coursess, status:200});
+            
         });
     },
 

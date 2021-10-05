@@ -47,6 +47,27 @@ module.exports = {
         });
     },
 
+
+    showSecretary: function (req, res) {
+        var secretaryId = req.params.secretary;
+
+        PersonalinformationModel.find({secretary: secretaryId}, function (err, personalInformation) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting educationProgram.',
+                    error: err
+                });
+            }
+
+            if (!personalInformation) {
+                return res.status(404).json({
+                    message: 'No such educationProgram'
+                });
+            }
+
+            return res.json({personalInformation, status:200});
+        });
+    },
     /**
      * personalInformationController.create()
      */
