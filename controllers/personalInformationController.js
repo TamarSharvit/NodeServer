@@ -18,7 +18,7 @@ module.exports = {
                     error: err
                 });
             }
-
+           console.log(personalInformations[0])
             return res.json(personalInformations);
         });
     },

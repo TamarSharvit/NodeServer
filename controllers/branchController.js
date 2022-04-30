@@ -19,7 +19,7 @@ module.exports = {
                 });
             }
 
-            return res.json(branchs);
+            return res.json({ branchs, status: 200 });
         });
     },
 
@@ -29,7 +29,7 @@ module.exports = {
     show: function (req, res) {
         var id = req.params.id;
 
-        BranchModel.findOne({_id: id}, function (err, branch) {
+        BranchModel.findOne({ _id: id }, function (err, branch) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting branch.',
@@ -52,8 +52,8 @@ module.exports = {
      */
     create: function (req, res) {
         var branch = new BranchModel({
-			name : req.body.name,
-			code : req.body.code
+            name: req.body.name,
+            code: req.body.code
         });
 
         branch.save(function (err, branch) {
@@ -74,7 +74,7 @@ module.exports = {
     update: function (req, res) {
         var id = req.params.id;
 
-        BranchModel.findOne({_id: id}, function (err, branch) {
+        BranchModel.findOne({ _id: id }, function (err, branch) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting branch',
@@ -89,8 +89,8 @@ module.exports = {
             }
 
             branch.name = req.body.name ? req.body.name : branch.name;
-			branch.code = req.body.code ? req.body.code : branch.code;
-			
+            branch.code = req.body.code ? req.body.code : branch.code;
+
             branch.save(function (err, branch) {
                 if (err) {
                     return res.status(500).json({
